@@ -16,6 +16,11 @@ const estadoTarea = ref(false)
 
 //ahora creamos la lógica para agregar la tarea al store
 const agregarTarea = () => {
+    if (!tipoTarea.value || !nombreTarea.value || !descripcionTarea.value || !fechaTarea.value) {
+        alert('Por favor, complete todos los campos antes de agregar la tarea.');
+        return;
+    }
+
     tareaAlmacenada.agregarTarea({
         tipoTarea: tipoTarea.value,
         nombreTarea: nombreTarea.value,
@@ -42,7 +47,7 @@ const agregarTarea = () => {
                     <label for="titulo" class="text-center font-bold text-2xl pb-4 text-teal-700">Agregar tarea</label>
                     <label for="tipoTarea" class="mx-2 py-2 text-teal-700">Tipo de tarea:</label>
                     <select id="tipoTarea" v-model="tipoTarea"
-                        class="w-full rounded-lg border border-teal-500 bg-white px-2 py-1">
+                        class="w-full rounded-lg border border-teal-500 bg-white px-2 py-1" required>
                         <option value="Trabajo">Trabajo</option>
                         <option value="Personal">Personal</option>
                         <option value="Urgente">Urgente</option>
@@ -53,14 +58,14 @@ const agregarTarea = () => {
                     <label for="nombreTarea" class="mx-2 py-2 text-teal-700">Nombre de tarea:</label>
                     <input id="nombreTarea" v-model="nombreTarea" type="text"
                         class="w-full rounded-lg border border-teal-500 bg-white px-2 py-1"
-                        placeholder="El nombre de la tarea">
+                        placeholder="El nombre de la tarea" required>
                 </div>
 
                 <div class="w-full px-2 flex flex-col">
                     <label for="descripcionTarea" class="mx-2 py-2 text-teal-700">Descripción de tarea:</label>
                     <input id="descripcionTarea" v-model="descripcionTarea" type="text"
                         class="w-full rounded-lg border border-teal-500 bg-white px-2 py-1"
-                        placeholder="Breve descripción de la tarea">
+                        placeholder="Breve descripción de la tarea" required>
                 </div>
 
                 <div class="w-full px-2 flex flex-col">
