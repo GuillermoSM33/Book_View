@@ -35,10 +35,15 @@ const sortedTasks = computed(() => {
 const changeOrder = (order: 'Urgente' | 'Trabajo' | 'Personal') => {
     currentOrder.value = order;
 };
+
+const removerPorEtiqueta = (tipoTarea: 'Urgente' | 'Trabajo' | 'Personal') => {
+    tareaAlmacenada.removerPorEtiqueta(tipoTarea)
+}
 </script>
 
 <template>
     <!-- Botones para cambiar el orden de las tareas -->
+    <p class="font-bold text-2xl pb-2 text-gray-800 text-center">Ordenamiento por etiqueta</p>
     <div class="flex justify-center gap-4 py-4">
         <button @click="changeOrder('Urgente')"
             class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">
@@ -51,6 +56,22 @@ const changeOrder = (order: 'Urgente' | 'Trabajo' | 'Personal') => {
         <button @click="changeOrder('Personal')"
             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">
             Ordenar por "Personal"
+        </button>
+    </div>
+
+    <p class="font-bold text-2xl pb-2 text-gray-800 text-center">Eliminación por etiqueta</p>
+    <div class="flex justify-center gap-4 py-4">
+        <button @click="removerPorEtiqueta('Urgente')"
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">
+            Eliminar Urgentes
+        </button>
+        <button @click="removerPorEtiqueta('Trabajo')"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">
+            Eliminar Trabajo
+        </button>
+        <button @click="removerPorEtiqueta('Personal')"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow-md">
+            Eliminar Personal
         </button>
     </div>
 

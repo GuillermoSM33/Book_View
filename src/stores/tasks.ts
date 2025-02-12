@@ -25,6 +25,12 @@ export const tareasAlmacenadas = defineStore('tasks', () => {
         localStorage.setItem('tasks', JSON.stringify(tasks.value))
     }
 
+    //Empleamos esta función para poder eliminar todas las tareas por etiqueta
+    const removerPorEtiqueta = (tipoTarea: string) => {
+        tasks.value = tasks.value.filter((task: {tipoTarea: string, nombreTarea:string, descripcionTarea: string, fechaTarea: Date, estadoTarea: boolean}) => task.tipoTarea !== tipoTarea)
+        localStorage.setItem('tasks', JSON.stringify(tasks.value))
+    }
+
     const editarTarea = (index: number, task: {tipoTarea: string, nombreTarea:string, descripcionTarea: string, fechaTarea: Date, estadoTarea: boolean}) => {
         tasks.value[index] = task
         localStorage.setItem('tasks', JSON.stringify(tasks.value))
@@ -43,6 +49,7 @@ export const tareasAlmacenadas = defineStore('tasks', () => {
         agregarTarea,
         editarTarea,
         removerTarea,
+        removerPorEtiqueta,
         marcarTarea
     }
 

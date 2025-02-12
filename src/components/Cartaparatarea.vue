@@ -33,8 +33,8 @@ const formatDate = (dateString) => {
     <slot>
         <div class="flex flex-wrap justify-center gap-4 pt-8">
             <div v-for="(task, index) in tasks" :key="index"
-                class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-white dark:border-gray-700 h-64">
-                <div class="px-5 pb-5 grid grid-cols-1 justify-center text-center gap-y-2 h-full">
+                class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-white dark:border-gray-700">
+                <div class="px-5 pb-5 grid grid-cols-1 justify-center text-center gap-y-2">
                     <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-black">{{ task.nombreTarea
                         }}</h5>
                     <p class="text-gray-700 dark:text-gray-400">{{ task.descripcionTarea }}</p>
@@ -53,6 +53,8 @@ const formatDate = (dateString) => {
                         <img :src="imagenPorTipo(task.tipoTarea)" class="w-10 pt-2 pb-2" alt="">
                         <p class="text-black font-bold">{{ task.tipoTarea }}</p>
                     </div>
+
+                    <p>Fecha de creación {{ formatDate(task.fechadeCreacion) }}</p>
 
                     <div class="flex w-full items-center justify-center mt-4 gap-x-4">
                         <button @click="tareaAlmacenada.removerTarea(index)"

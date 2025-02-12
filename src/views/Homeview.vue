@@ -1,7 +1,7 @@
 <script setup>
 import { tareasAlmacenadas } from '../stores/tasks';
 import Cartaparatarea from '../components/Cartaparatarea.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 //creamos la constante que va a almacenar todo lo que se encuentre en la funcion creada
 const tareaAlmacenada = tareasAlmacenadas()
@@ -13,6 +13,7 @@ const nombreTarea = ref('')
 const descripcionTarea = ref('')
 const fechaTarea = ref('')
 const estadoTarea = ref(false)
+const fechadeCreacion = ref('')
 
 //ahora creamos la lógica para agregar la tarea al store
 const agregarTarea = () => {
@@ -26,14 +27,30 @@ const agregarTarea = () => {
         nombreTarea: nombreTarea.value,
         descripcionTarea: descripcionTarea.value,
         fechaTarea: new Date(fechaTarea.value),
-        estadoTarea: estadoTarea.value
+        estadoTarea: estadoTarea.value,
+        fechadeCreacion: new Date()
     })
     tipoTarea.value = ''
     nombreTarea.value = ''
     descripcionTarea.value = ''
     fechaTarea.value = ''
     estadoTarea.value = false
+    //Al momento de obtener la fecha, ya deja de ser necesario pasarle un valor hardcodeado
+    //fechadeCreacion.value = ''
 }
+
+//Creamos la función para ordenar las tareas de la primera a la última creada
+
+const ordenarPorFecha = () => {
+    //Nuevamente empleamos el sort para hacer que se reccoran las tareas en a y b, en dónde
+    //se comparan las fechas de creación de las tareas, y se hace una resta para que se ordene de la más reciente a la más antigua
+    tareaAlmacenada.tasks.sort((a, b) => {
+        return new Date(b.fechadeCreacion) - new Date(a.fechadeCreacion)
+    })
+}
+
+//Aplicamos watch para que se ejecute la función de ordenar por fecha de manera inmediata
+watch(tareaAlmacenada.tasks, ordenarPorFecha, { immediate: true })
 </script>
 
 <template>
